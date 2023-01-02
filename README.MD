@@ -2,6 +2,8 @@
 
 Type of Nodes is char (charracter)
 
+I tried to implement [generic Graph](https://github.com/antonovmike/graph_library) but it is too difficult. I'll do this task first, and then I'll go back to the previous one
+
 Methods:
 ```Rust
 // Create new empty Graph
