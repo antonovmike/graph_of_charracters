@@ -1,5 +1,5 @@
 use std::{
-    collections::BTreeMap,
+    collections::{BTreeMap, HashSet, VecDeque},
     sync::atomic::{AtomicUsize, Ordering}, 
 };
 
@@ -40,26 +40,30 @@ impl Graph {
         Graph { nodes, edges, root }
     }
     
-    pub fn is_node_name(graph: &Graph, node: char) -> bool {
-        for i in &graph.nodes {
-            let temp_node: char = *i.1;
-            if node == temp_node {
-                return true
-            };
-        }
-        
-        false
-    }
-    
-    pub fn is_node_id(graph: &Graph, id: u64) -> bool {
+    pub fn is_node_name(graph: &Graph, node: char) -> Option<u64> {
+        let mut node_id: Option<u64> = None;
         for i in &graph.nodes {
             let temp_id: u64 = *i.0;
-            if id == temp_id {
-                return true
+            let temp_node: char = *i.1;
+            if node == temp_node {
+                node_id = Some(temp_id)
             };
         }
         
-        false
+        node_id
+    }
+    
+    pub fn is_node_id(graph: &Graph, id: u64) -> Option<char> {
+        let mut node_name: Option<char> = None;
+        for i in &graph.nodes {
+            let temp_id: u64 = *i.0;
+            let temp_node: char = *i.1;
+            if id == temp_id {
+                node_name = Some(temp_node)
+            };
+        }
+        
+        node_name
     }
     
     fn copy(graph: &Graph) -> Graph {
