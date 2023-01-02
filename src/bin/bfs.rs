@@ -10,7 +10,7 @@ fn main() {
     
     println!("v1\n{}", graph);
     
-    let graph_2 = Graph::add_node(&graph, &['E']);
+    let graph_2 = Graph::add_node(&graph, &['A']);
     
     println!("v2\n{}", graph_2);
     

@@ -6,7 +6,7 @@ use std::{
 #[derive(Debug, Clone)]
 pub struct Graph {
     nodes: BTreeMap<u64, char>,
-    edges: Option<u8>,
+    edges: Vec<(u64, u64)>,
     root: Option<u64>,
 }
 
@@ -35,7 +35,7 @@ impl Default for Graph {
 impl Graph {
     pub fn new() -> Self {
         let nodes: BTreeMap<u64, char> = BTreeMap::new();
-        let edges = None;
+        let edges = vec![];
         let root = None;
         Graph { nodes, edges, root }
     }
@@ -74,7 +74,7 @@ impl Graph {
             hash_node.insert(temp_id, temp_node);
         }
         let temp_graph: Graph = Graph { 
-            nodes: hash_node, edges: graph.edges, root: graph.root 
+            nodes: hash_node, edges: graph.edges.clone(), root: graph.root 
         };
         temp_graph
     }
@@ -88,11 +88,14 @@ impl Graph {
         }
 
         for i in node {
-            let id = set_id() as u64;
-            hash_node.insert(id, *i);
+            let check = Graph::get_node_id(&graph, *i).is_none();
+            if check == true {
+                let id = set_id() as u64;
+                hash_node.insert(id, *i);
+            }
         }
         let temp_graph: Graph = Graph { 
-            nodes: hash_node, edges: graph.edges, root: graph.root 
+            nodes: hash_node, edges: graph.edges.clone(), root: graph.root 
         };
 
         temp_graph
@@ -120,7 +123,7 @@ impl Graph {
             } else {  };
         }
         let temp_graph: Graph = Graph { 
-            nodes: hash_node, edges: graph.edges, root: graph.root 
+            nodes: hash_node, edges: graph.edges.clone(), root: graph.root 
         };
 
         temp_graph
