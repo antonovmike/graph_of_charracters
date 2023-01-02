@@ -17,4 +17,9 @@ fn main() {
     let graph_3 = Graph::remove_node(&graph_2, None, Some(1));
         
     println!("v3\n{}", graph_3);
+    
+    let searching_for_name = Graph::is_node_name(&graph_3, 'c');
+    println!("{}", searching_for_name);
+    let searching_for_id = Graph::is_node_id(&graph_3, 2);
+    println!("{}", searching_for_id);
 }

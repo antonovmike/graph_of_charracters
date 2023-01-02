@@ -32,13 +32,34 @@ impl Default for Graph {
     }
 }
 
-
 impl Graph {
     pub fn new() -> Self {
         let nodes: BTreeMap<u64, char> = BTreeMap::new();
         let edges = None;
         let root = None;
         Graph { nodes, edges, root }
+    }
+    
+    pub fn is_node_name(graph: &Graph, node: char) -> bool {
+        for i in &graph.nodes {
+            let temp_node: char = *i.1;
+            if node == temp_node {
+                return true
+            };
+        }
+        
+        false
+    }
+    
+    pub fn is_node_id(graph: &Graph, id: u64) -> bool {
+        for i in &graph.nodes {
+            let temp_id: u64 = *i.0;
+            if id == temp_id {
+                return true
+            };
+        }
+        
+        false
     }
     
     fn copy(graph: &Graph) -> Graph {
