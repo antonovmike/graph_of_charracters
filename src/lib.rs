@@ -128,4 +128,21 @@ impl Graph {
 
         temp_graph
     }
+    
+    pub fn add_edge(graph: &Graph, start_node: char, end_node: char) -> Graph {
+        let first = Graph::get_node_id(&graph, start_node);
+        let last = Graph::get_node_id(&graph, end_node);
+        
+        let mut vector: Vec<(u64, u64)> = graph.edges.clone();
+        
+        if first.is_some() && last.is_some() {
+            vector.push( (first.unwrap(), last.unwrap()) )
+        }
+        
+        let temp_graph = Graph {
+            nodes: graph.nodes.clone(), edges: vector, root: graph.root
+        };
+        
+        temp_graph
+    }
 }

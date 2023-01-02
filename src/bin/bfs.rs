@@ -7,7 +7,8 @@ fn main() {
 
     let empty_graph = Graph::default();
     let graph = Graph::add_node(&empty_graph, &list_of_nodes);
-    
+    let graph = Graph::add_edge(&graph, 'A', 'B');
+    let graph = Graph::add_edge(&graph, 'B', 'X');    
     println!("v1\n{}", graph);
     
     let graph_2 = Graph::add_node(&graph, &['A']);
