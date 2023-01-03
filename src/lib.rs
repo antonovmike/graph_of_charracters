@@ -159,7 +159,17 @@ impl Graph {
         };
     }
     
-    pub fn rm_edge_by_node(graph: &Graph, node: char) {
+    pub fn rm_edge(graph: &Graph, start_node: char, end_node: char) -> Graph {
+        let mut temp_vec = graph.edges.clone();
+        let first_id = Graph::get_node_id(&graph, start_node).unwrap();
+        let last_id = Graph::get_node_id(&graph, end_node).unwrap();
+        let tupple = (first_id, last_id);
+        temp_vec.retain(|&x| x != tupple);
         
+        let temp_graph = Graph {
+            nodes: graph.nodes.clone(), edges: temp_vec, root: graph.root
+        };
+        
+        temp_graph
     }
 }

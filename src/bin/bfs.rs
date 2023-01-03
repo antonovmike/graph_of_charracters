@@ -26,4 +26,7 @@ fn main() {
     
     let edge_name = Graph::get_edge_name(&graph_3, 2, 9);
     println!("{:?}", edge_name);
+    
+    let graph_2 = Graph::rm_edge(&graph_2, 'C', 'B');
+    println!("{}", graph_2);
 }
