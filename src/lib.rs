@@ -100,7 +100,7 @@ impl Graph {
         }
     }
     
-    pub fn remove_node(graph: &Graph, node: Option<char>, id: Option<u64>) -> Graph {
+    pub fn rm_node(graph: &Graph, node: Option<char>, id: Option<u64>) -> Graph {
         if node.is_none() && id.is_none() {
             return Graph::copy(graph)
         }
@@ -190,4 +190,17 @@ impl Graph {
             nodes: graph.nodes.clone(), edges: temp_vec, root: graph.root
         }
     }
+}
+
+#[test]
+fn create_empty_graph() {
+    let empty_graph = Graph {
+        nodes: BTreeMap::new(),
+        edges: vec![],
+        root: None
+    };
+    let new_graph = Graph::default();
+    assert_eq!(empty_graph.nodes, new_graph.nodes);
+    assert_eq!(empty_graph.edges, new_graph.edges);
+    assert_eq!(empty_graph.root, new_graph.root);
 }

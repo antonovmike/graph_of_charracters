@@ -4,6 +4,7 @@ fn main() {
     let list_of_nodes = ['A', 'B', 'C', 'D'];
 
     let empty_graph = Graph::default();
+    println!("{}", empty_graph);
     let graph = Graph::add_node(&empty_graph, &list_of_nodes);
     let graph = Graph::add_edge(&graph, 'A', 'B');
     let graph = Graph::add_edge(&graph, 'C', 'B');
@@ -14,7 +15,7 @@ fn main() {
     
     // println!("v2\n{}", graph_2);
     
-    let graph_3 = Graph::remove_node(&graph_2, None, Some(1));
+    let graph_3 = Graph::rm_node(&graph_2, None, Some(1));
         
     println!("v3\n{}", graph_3);
     
