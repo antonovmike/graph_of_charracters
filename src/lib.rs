@@ -146,9 +146,15 @@ impl Graph {
         temp_graph
     }
     
-    pub fn get_edge(graph: &Graph, start_id: u64, end_id: u64) -> Option<(char, char)> {
-        
-        Some(('x', 'x'))
+    pub fn get_edge_name(graph: &Graph, start_id: u64, end_id: u64) -> Option<(Option<char>, Option<char>)> {
+        let tupple = (start_id, end_id);
+        if !graph.edges.contains(&tupple) {
+            return None
+        } else {
+            let first = Graph::get_node_name(&graph, start_id);
+            let last = Graph::get_node_name(&graph, end_id);
+            return Some( (first, last) )
+        };
     }
     
     pub fn remove_edge() {}
