@@ -118,13 +118,15 @@ impl Graph {
                     let node_to_remove = Graph::rm_edge_by_node(&graph, node.unwrap()).edges;
                     temp_vec = node_to_remove;
                 }
-            } else {
-                // remove Edges that contain this Node
             };
 
             if id.is_some() {
                 if temp_id != id.unwrap() {
                     hash_node.insert(temp_id, temp_node);
+                } else {
+                    let node_by_id = Graph::get_node_name(&graph, id.unwrap()).unwrap();
+                    let node_to_remove = Graph::rm_edge_by_node(&graph, node_by_id).edges;
+                    temp_vec = node_to_remove;
                 }
             } else {  };
         }

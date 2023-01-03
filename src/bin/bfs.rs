@@ -16,7 +16,7 @@ fn main() {
     
     // println!("v2\n{}", graph_2);
     
-    let graph_3 = Graph::remove_node(&graph_2, Some('B'), None);
+    let graph_3 = Graph::remove_node(&graph_2, None, Some(1));
         
     println!("v3\n{}", graph_3);
     
