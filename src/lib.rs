@@ -73,10 +73,10 @@ impl Graph {
             let temp_node: char = *i.1;
             hash_node.insert(temp_id, temp_node);
         }
-        let temp_graph: Graph = Graph { 
+
+        Graph { 
             nodes: hash_node, edges: graph.edges.clone(), root: graph.root 
-        };
-        temp_graph
+        }
     }
  
     pub fn add_node(graph: &Graph, node: &[char]) -> Graph {
@@ -94,11 +94,10 @@ impl Graph {
                 hash_node.insert(id, *i);
             }
         }
-        let temp_graph: Graph = Graph { 
-            nodes: hash_node, edges: graph.edges.clone(), root: graph.root 
-        };
 
-        temp_graph
+        Graph { 
+            nodes: hash_node, edges: graph.edges.clone(), root: graph.root 
+        }
     }
     
     pub fn remove_node(graph: &Graph, node: Option<char>, id: Option<u64>) -> Graph {
@@ -124,11 +123,10 @@ impl Graph {
                 }
             } else {  };
         }
-        let temp_graph: Graph = Graph { 
+        
+        Graph { 
             nodes: hash_node, edges: graph.edges.clone(), root: graph.root 
-        };
-
-        temp_graph
+        }
     }
     
     pub fn add_edge(graph: &Graph, start_node: char, end_node: char) -> Graph {
@@ -141,11 +139,9 @@ impl Graph {
             vector.push( (first.unwrap(), last.unwrap()) )
         }
         
-        let temp_graph = Graph {
+        Graph {
             nodes: graph.nodes.clone(), edges: vector, root: graph.root
-        };
-        
-        temp_graph
+        }
     }
     
     pub fn get_edge_name(graph: &Graph, start_id: u64, end_id: u64) -> Option<(Option<char>, Option<char>)> {
@@ -164,12 +160,11 @@ impl Graph {
         let first_id = Graph::get_node_id(&graph, start_node).unwrap();
         let last_id = Graph::get_node_id(&graph, end_node).unwrap();
         let tupple = (first_id, last_id);
+
         temp_vec.retain(|&x| x != tupple);
         
-        let temp_graph = Graph {
+        Graph {
             nodes: graph.nodes.clone(), edges: temp_vec, root: graph.root
-        };
-        
-        temp_graph
+        }
     }
 }
