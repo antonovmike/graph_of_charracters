@@ -135,7 +135,7 @@ impl Graph {
         
         let mut vector: Vec<(u64, u64)> = graph.edges.clone();
         
-        if first.is_some() && last.is_some() {
+        if first.is_some() && last.is_some() && first != last {
             vector.push( (first.unwrap(), last.unwrap()) )
         }
         
@@ -145,4 +145,11 @@ impl Graph {
         
         temp_graph
     }
+    
+    pub fn get_edge(graph: &Graph, start_id: u64, end_id: u64) -> Option<(char, char)> {
+        
+        Some(('x', 'x'))
+    }
+    
+    pub fn remove_edge() {}
 }
