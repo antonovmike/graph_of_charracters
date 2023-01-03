@@ -167,4 +167,8 @@ impl Graph {
             nodes: graph.nodes.clone(), edges: temp_vec, root: graph.root
         }
     }
+    
+    pub fn rm_edge_by_node() {
+        
+    }
 }
