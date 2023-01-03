@@ -114,7 +114,9 @@ impl Graph {
                 if temp_node != node.unwrap() {
                     hash_node.insert(temp_id, temp_node);
                 }
-            } else {  };
+            } else {
+                // remove Edges that contain this Node
+            };
 
             if id.is_some() {
                 if temp_id != id.unwrap() {
@@ -157,5 +159,7 @@ impl Graph {
         };
     }
     
-    pub fn remove_edge() {}
+    pub fn rm_edge_by_node(graph: &Graph, node: char) {
+        
+    }
 }
