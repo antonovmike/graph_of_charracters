@@ -1,8 +1,6 @@
 use graph_of_charracters::*;
 
 fn main() {
-    println!("The Graph of Characters");
-
     let list_of_nodes = ['A', 'B', 'C', 'D'];
 
     let empty_graph = Graph::default();

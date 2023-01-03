@@ -18,7 +18,6 @@ Graph::remove_node(&graph_2, None, Some(1));
 
 **TODO:**
 
-- Add/remove directed edges;
 - Breadth-first search (or any other algorithm);
 - Serialization into trivial Graph Format;
 - Deserialization;
@@ -26,6 +25,8 @@ Graph::remove_node(&graph_2, None, Some(1));
 
 **DONE**
 - Add/remove Nodes;
+- Add/remove directed edges;
+- Remove Edges if Node is removed
 
 For example
 ```rust
