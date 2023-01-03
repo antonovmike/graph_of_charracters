@@ -105,6 +105,8 @@ impl Graph {
             return Graph::copy(graph)
         }
         
+        let mut temp_vec: Vec<(u64, u64)> = graph.edges.clone();
+        
         let mut hash_node: BTreeMap<u64, char> = BTreeMap::new();
         for i in &graph.nodes {
             let temp_id: u64 = *i.0;
@@ -112,6 +114,9 @@ impl Graph {
             if node.is_some() {
                 if temp_node != node.unwrap() {
                     hash_node.insert(temp_id, temp_node);
+                } else {
+                    let node_to_remove = Graph::rm_edge_by_node(&graph, node.unwrap()).edges;
+                    temp_vec = node_to_remove;
                 }
             } else {
                 // remove Edges that contain this Node
@@ -125,7 +130,7 @@ impl Graph {
         }
         
         Graph { 
-            nodes: hash_node, edges: graph.edges.clone(), root: graph.root 
+            nodes: hash_node, edges: temp_vec, root: graph.root 
         }
     }
     
@@ -168,7 +173,19 @@ impl Graph {
         }
     }
     
-    pub fn rm_edge_by_node() {
+    pub fn rm_edge_by_node(graph: &Graph, node: char) -> Graph {
+        let mut temp_vec: Vec<(u64, u64)> = graph.edges.clone();
+        let node_id = Graph::get_node_id(&graph, node).unwrap();
         
+        for i in temp_vec.clone() {
+            if i.0 == node_id || i.1 == node_id {
+                let index = temp_vec.iter().position(|&r| r == i).unwrap();
+                temp_vec.remove(index);
+            }
+        }
+        
+        Graph {
+            nodes: graph.nodes.clone(), edges: temp_vec, root: graph.root
+        }
     }
 }
