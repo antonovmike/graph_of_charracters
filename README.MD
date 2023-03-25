@@ -18,6 +18,8 @@ Graph::remove_node(&graph_2, None, Some(1));
 
 **TODO:**
 
+- Each Node can be a part of 1 previous Edge and 2 next Edges
+
 - Breadth-first search (or any other algorithm);
 - Serialization into trivial Graph Format;
 - Deserialization;

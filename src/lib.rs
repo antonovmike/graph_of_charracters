@@ -1,6 +1,6 @@
 use std::{
     collections::BTreeMap,
-    sync::atomic::{AtomicUsize, Ordering}, 
+    sync::atomic::{AtomicUsize, Ordering},
 };
 
 #[derive(Debug, Clone)]
@@ -39,7 +39,7 @@ impl Graph {
         let root = None;
         Graph { nodes, edges, root }
     }
-    
+
     pub fn get_node_id(graph: &Graph, node: char) -> Option<u64> {
         let mut node_id: Option<u64> = None;
         for i in &graph.nodes {
@@ -49,10 +49,10 @@ impl Graph {
                 node_id = Some(temp_id)
             };
         }
-        
+
         node_id
     }
-    
+
     pub fn get_node_name(graph: &Graph, id: u64) -> Option<char> {
         let mut node_name: Option<char> = None;
         for i in &graph.nodes {
@@ -62,10 +62,10 @@ impl Graph {
                 node_name = Some(temp_node)
             };
         }
-        
+
         node_name
     }
-    
+
     fn copy(graph: &Graph) -> Graph {
         let mut hash_node: BTreeMap<u64, char> = BTreeMap::new();
         for i in &graph.nodes {
@@ -74,11 +74,13 @@ impl Graph {
             hash_node.insert(temp_id, temp_node);
         }
 
-        Graph { 
-            nodes: hash_node, edges: graph.edges.clone(), root: graph.root 
+        Graph {
+            nodes: hash_node,
+            edges: graph.edges.clone(),
+            root: graph.root,
         }
     }
- 
+
     pub fn add_node(graph: &Graph, node: &[char]) -> Graph {
         let mut hash_node: BTreeMap<u64, char> = BTreeMap::new();
         for i in &graph.nodes {
@@ -95,18 +97,20 @@ impl Graph {
             }
         }
 
-        Graph { 
-            nodes: hash_node, edges: graph.edges.clone(), root: graph.root 
+        Graph {
+            nodes: hash_node,
+            edges: graph.edges.clone(),
+            root: graph.root,
         }
     }
-    
+
     pub fn rm_node(graph: &Graph, node: Option<char>, id: Option<u64>) -> Graph {
         if node.is_none() && id.is_none() {
-            return Graph::copy(graph)
+            return Graph::copy(graph);
         }
-        
+
         let mut temp_vec: Vec<(u64, u64)> = graph.edges.clone();
-        
+
         let mut hash_node: BTreeMap<u64, char> = BTreeMap::new();
         for i in &graph.nodes {
             let temp_id: u64 = *i.0;
@@ -128,40 +132,45 @@ impl Graph {
                     let node_to_remove = Graph::rm_edge_by_node(&graph, node_by_id).edges;
                     temp_vec = node_to_remove;
                 }
-            } else {  };
+            } else {
+            };
         }
-        
-        Graph { 
-            nodes: hash_node, edges: temp_vec, root: graph.root 
+
+        Graph {
+            nodes: hash_node,
+            edges: temp_vec,
+            root: graph.root,
         }
     }
-    
+
     pub fn add_edge(graph: &Graph, start_node: char, end_node: char) -> Graph {
         let first = Graph::get_node_id(&graph, start_node);
         let last = Graph::get_node_id(&graph, end_node);
-        
+
         let mut vector: Vec<(u64, u64)> = graph.edges.clone();
-        
+
         if first.is_some() && last.is_some() && first != last {
-            vector.push( (first.unwrap(), last.unwrap()) )
+            vector.push((first.unwrap(), last.unwrap()))
         }
-        
+
         Graph {
-            nodes: graph.nodes.clone(), edges: vector, root: graph.root
+            nodes: graph.nodes.clone(),
+            edges: vector,
+            root: graph.root,
         }
     }
-    
-    pub fn get_edge_name(graph: &Graph, start_id: u64, end_id: u64) -> Option<(Option<char>, Option<char>)> {
+
+    pub fn get_edge_name(graph: &Graph, start_id: u64, end_id: u64) -> String {
         let tupple = (start_id, end_id);
         if !graph.edges.contains(&tupple) {
-            return None
+            return "Graph doesn't contan this Edge".to_string();
         } else {
             let first = Graph::get_node_name(&graph, start_id);
             let last = Graph::get_node_name(&graph, end_id);
-            return Some( (first, last) )
+            return format!("{}/{}", first.unwrap(), last.unwrap());
         };
     }
-    
+
     pub fn rm_edge(graph: &Graph, start_node: char, end_node: char) -> Graph {
         let mut temp_vec = graph.edges.clone();
         let first_id = Graph::get_node_id(&graph, start_node).unwrap();
@@ -169,38 +178,55 @@ impl Graph {
         let tupple = (first_id, last_id);
 
         temp_vec.retain(|&x| x != tupple);
-        
+
         Graph {
-            nodes: graph.nodes.clone(), edges: temp_vec, root: graph.root
+            nodes: graph.nodes.clone(),
+            edges: temp_vec,
+            root: graph.root,
         }
     }
-    
+
     pub fn rm_edge_by_node(graph: &Graph, node: char) -> Graph {
         let mut temp_vec: Vec<(u64, u64)> = graph.edges.clone();
         let node_id = Graph::get_node_id(&graph, node).unwrap();
-        
+
         for i in temp_vec.clone() {
             if i.0 == node_id || i.1 == node_id {
                 let index = temp_vec.iter().position(|&r| r == i).unwrap();
                 temp_vec.remove(index);
             }
         }
-        
+
         Graph {
-            nodes: graph.nodes.clone(), edges: temp_vec, root: graph.root
+            nodes: graph.nodes.clone(),
+            edges: temp_vec,
+            root: graph.root,
         }
     }
 }
+
+// TESTS
 
 #[test]
 fn create_empty_graph() {
     let empty_graph = Graph {
         nodes: BTreeMap::new(),
         edges: vec![],
-        root: None
+        root: None,
     };
     let new_graph = Graph::default();
     assert_eq!(empty_graph.nodes, new_graph.nodes);
     assert_eq!(empty_graph.edges, new_graph.edges);
     assert_eq!(empty_graph.root, new_graph.root);
 }
+
+// #[test]
+// fn add_and_remove_nodes() {
+//     let graph = Graph {
+//         nodes: BTreeMap::new(),
+//         edges: vec![],
+//         root: None
+//     };
+//     let list_of_nodes = ['a', 'b', 'c', 'd'];
+//     let new_graph = Graph::default();
+// }
