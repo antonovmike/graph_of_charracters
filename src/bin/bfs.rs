@@ -17,14 +17,11 @@ fn main() {
 
     println!("v3\n{}", graph_3);
 
-    // let searching_for_name = Graph::get_node_id(&graph_3, 'C');
-    // println!("Node's  ID  is {:?}", searching_for_name);
-    // let searching_for_id = Graph::get_node_name(&graph_3, 2);
-    // println!("Node's name is {:?}", searching_for_id);
+    let searching_for_name = Graph::get_node_id(&graph_3, 'C');
+    println!("Node's ID is {}", searching_for_name.unwrap());
+    let searching_for_id = Graph::get_node_name(&graph_3, 2);
+    println!("Node's name is {}", searching_for_id.unwrap());
 
     let edge_name = Graph::get_edge_name(&graph_3, 2, 3);
     println!("Edge name: {}", edge_name);
-
-    // let graph_2 = Graph::rm_edge_by_node(&graph_2, 'C');
-    // println!("{}", graph_2);
 }

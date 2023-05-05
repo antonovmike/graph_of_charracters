@@ -36,7 +36,7 @@ impl Graph {
     pub fn new() -> Self {
         let nodes: BTreeMap<u64, char> = BTreeMap::new();
         let edges = vec![];
-        let root = None;
+        let root = Some(0);
         Graph { nodes, edges, root }
     }
 
@@ -64,6 +64,17 @@ impl Graph {
         }
 
         node_name
+    }
+
+    pub fn get_edge_name(graph: &Graph, start_id: u64, end_id: u64) -> String {
+        let tupple = (start_id, end_id);
+        if !graph.edges.contains(&tupple) {
+            return "Graph doesn't contan this Edge".to_string();
+        } else {
+            let first = Graph::get_node_name(&graph, start_id);
+            let last = Graph::get_node_name(&graph, end_id);
+            return format!("{} –> {}", first.unwrap(), last.unwrap());
+        };
     }
 
     fn copy(graph: &Graph) -> Graph {
@@ -143,7 +154,30 @@ impl Graph {
         }
     }
 
+    fn check_neighbors(graph: &Graph, start_node: char, end_node: char) -> bool {
+        let first_n_id = Graph::get_node_id(&graph, start_node).unwrap();
+        let last_n_id = Graph::get_node_id(&graph, end_node).unwrap();
+        if first_n_id == last_n_id || first_n_id < last_n_id {
+            false;
+        } else if first_n_id == 0 {
+            true;
+        }
+        // let previous_node = Graph::get_node_name(&graph, first_n_id - 1);
+        // get_node_id(graph: &Graph, node: char) -> Option<u64>
+        // for the previous Edge
+        // only one smallest neighbor is allowed
+        // for the next two Edges
+        // only two bigger neighbors are allowed
+        true
+    }
+
+    // Each Node can be a part of 1 previous Edge and 2 next Edges
     pub fn add_edge(graph: &Graph, start_node: char, end_node: char) -> Graph {
+        if Graph::check_neighbors(graph, start_node, end_node) {
+            println!("True")
+        } else {
+            println!("False")
+        }
         let first = Graph::get_node_id(&graph, start_node);
         let last = Graph::get_node_id(&graph, end_node);
 
@@ -160,32 +194,6 @@ impl Graph {
         }
     }
 
-    pub fn get_edge_name(graph: &Graph, start_id: u64, end_id: u64) -> String {
-        let tupple = (start_id, end_id);
-        if !graph.edges.contains(&tupple) {
-            return "Graph doesn't contan this Edge".to_string();
-        } else {
-            let first = Graph::get_node_name(&graph, start_id);
-            let last = Graph::get_node_name(&graph, end_id);
-            return format!("{}/{}", first.unwrap(), last.unwrap());
-        };
-    }
-
-    pub fn rm_edge(graph: &Graph, start_node: char, end_node: char) -> Graph {
-        let mut temp_vec = graph.edges.clone();
-        let first_id = Graph::get_node_id(&graph, start_node).unwrap();
-        let last_id = Graph::get_node_id(&graph, end_node).unwrap();
-        let tupple = (first_id, last_id);
-
-        temp_vec.retain(|&x| x != tupple);
-
-        Graph {
-            nodes: graph.nodes.clone(),
-            edges: temp_vec,
-            root: graph.root,
-        }
-    }
-
     pub fn rm_edge_by_node(graph: &Graph, node: char) -> Graph {
         let mut temp_vec: Vec<(u64, u64)> = graph.edges.clone();
         let node_id = Graph::get_node_id(&graph, node).unwrap();
@@ -196,6 +204,21 @@ impl Graph {
                 temp_vec.remove(index);
             }
         }
+
+        Graph {
+            nodes: graph.nodes.clone(),
+            edges: temp_vec,
+            root: graph.root,
+        }
+    }
+
+    pub fn rm_edge(graph: &Graph, start_node: char, end_node: char) -> Graph {
+        let mut temp_vec = graph.edges.clone();
+        let first_id = Graph::get_node_id(&graph, start_node).unwrap();
+        let last_id = Graph::get_node_id(&graph, end_node).unwrap();
+        let tupple = (first_id, last_id);
+
+        temp_vec.retain(|&x| x != tupple);
 
         Graph {
             nodes: graph.nodes.clone(),
