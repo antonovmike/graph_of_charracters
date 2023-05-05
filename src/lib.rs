@@ -229,27 +229,31 @@ impl Graph {
 }
 
 // TESTS
+#[cfg(test)]
+mod tests {
+    use super::*;
 
-#[test]
-fn create_empty_graph() {
-    let empty_graph = Graph {
-        nodes: BTreeMap::new(),
-        edges: vec![],
-        root: Some(0),
-    };
-    let new_graph = Graph::default();
-    assert_eq!(empty_graph.nodes, new_graph.nodes);
-    assert_eq!(empty_graph.edges, new_graph.edges);
-    assert_eq!(empty_graph.root, new_graph.root);
+    #[test]
+    fn create_empty_graph() {
+        let empty_graph = Graph {
+            nodes: BTreeMap::new(),
+            edges: vec![],
+            root: Some(0),
+        };
+        let new_graph = Graph::default();
+        assert_eq!(empty_graph.nodes, new_graph.nodes);
+        assert_eq!(empty_graph.edges, new_graph.edges);
+        assert_eq!(empty_graph.root, new_graph.root);
+    }
+
+    // #[test]
+    // fn add_and_remove_nodes() {
+    //     let graph = Graph {
+    //         nodes: BTreeMap::new(),
+    //         edges: vec![],
+    //         root: None
+    //     };
+    //     let list_of_nodes = ['a', 'b', 'c', 'd'];
+    //     let new_graph = Graph::default();
+    // }
 }
-
-// #[test]
-// fn add_and_remove_nodes() {
-//     let graph = Graph {
-//         nodes: BTreeMap::new(),
-//         edges: vec![],
-//         root: None
-//     };
-//     let list_of_nodes = ['a', 'b', 'c', 'd'];
-//     let new_graph = Graph::default();
-// }
