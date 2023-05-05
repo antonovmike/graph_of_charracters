@@ -246,14 +246,15 @@ mod tests {
         assert_eq!(empty_graph.root, new_graph.root);
     }
 
-    // #[test]
-    // fn add_and_remove_nodes() {
-    //     let graph = Graph {
-    //         nodes: BTreeMap::new(),
-    //         edges: vec![],
-    //         root: None
-    //     };
-    //     let list_of_nodes = ['a', 'b', 'c', 'd'];
-    //     let new_graph = Graph::default();
-    // }
+    #[test]
+    fn same_node_id() {
+        let list_of_nodes = ['a', 'b', 'c', 'd'];
+        let graph = Graph::add_node(&Graph::default(), &list_of_nodes);
+
+        for n in list_of_nodes {
+            Graph::add_node(&graph, &[n]);
+        }
+
+        assert_eq!(false, Graph::check_neighbors(&graph, 'd', 'd'));
+    }
 }
