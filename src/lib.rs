@@ -172,11 +172,10 @@ impl Graph {
 
     // Each Node can be a part of 1 previous Edge and 2 next Edges
     pub fn add_edge(graph: &Graph, start_node: char, end_node: char) -> Graph {
-        println!("add_edge {start_node}, {end_node}");
         if Graph::check_neighbors(graph, start_node, end_node) {
-            println!("\tTrue")
+            println!("Check ID\tTrue")
         } else {
-            println!("\tFalse")
+            println!("Check ID\tFalse")
         }
         let first = Graph::get_node_id(&graph, start_node);
         let last = Graph::get_node_id(&graph, end_node);
