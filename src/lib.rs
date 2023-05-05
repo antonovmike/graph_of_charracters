@@ -157,10 +157,10 @@ impl Graph {
     fn check_neighbors(graph: &Graph, start_node: char, end_node: char) -> bool {
         let first_n_id = Graph::get_node_id(&graph, start_node).unwrap();
         let last_n_id = Graph::get_node_id(&graph, end_node).unwrap();
-        if first_n_id == last_n_id || first_n_id < last_n_id {
-            false;
-        } else if first_n_id == 0 {
-            true;
+        if first_n_id == last_n_id {
+            return false;
+        } else {
+            return true;
         }
         // let previous_node = Graph::get_node_name(&graph, first_n_id - 1);
         // get_node_id(graph: &Graph, node: char) -> Option<u64>
@@ -168,15 +168,15 @@ impl Graph {
         // only one smallest neighbor is allowed
         // for the next two Edges
         // only two bigger neighbors are allowed
-        true
     }
 
     // Each Node can be a part of 1 previous Edge and 2 next Edges
     pub fn add_edge(graph: &Graph, start_node: char, end_node: char) -> Graph {
+        println!("add_edge {start_node}, {end_node}");
         if Graph::check_neighbors(graph, start_node, end_node) {
-            println!("True")
+            println!("\tTrue")
         } else {
-            println!("False")
+            println!("\tFalse")
         }
         let first = Graph::get_node_id(&graph, start_node);
         let last = Graph::get_node_id(&graph, end_node);
