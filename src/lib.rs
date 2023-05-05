@@ -235,7 +235,7 @@ fn create_empty_graph() {
     let empty_graph = Graph {
         nodes: BTreeMap::new(),
         edges: vec![],
-        root: None,
+        root: Some(0),
     };
     let new_graph = Graph::default();
     assert_eq!(empty_graph.nodes, new_graph.nodes);
