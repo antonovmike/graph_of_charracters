@@ -20,8 +20,10 @@ impl std::fmt::Display for Graph {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(
             f,
-            "\nGRAPH:\n\tnodes: {:?}\n\tedges: {:?}\n\troot: {:?}\n-----",
-            self.nodes, self.edges, self.root
+            "\nGRAPH:\n\tnodes: {:?}\n\tedges: {:?}\n\troot:  {:?}\n-----",
+            self.nodes,
+            self.edges,
+            self.root.unwrap()
         )
     }
 }
@@ -162,8 +164,6 @@ impl Graph {
         } else {
             return true;
         }
-        // let previous_node = Graph::get_node_name(&graph, first_n_id - 1);
-        // get_node_id(graph: &Graph, node: char) -> Option<u64>
         // for the previous Edge
         // only one smallest neighbor is allowed
         // for the next two Edges
