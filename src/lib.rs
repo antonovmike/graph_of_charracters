@@ -1,13 +1,36 @@
 use std::{
     collections::BTreeMap,
+    fmt,
     sync::atomic::{AtomicUsize, Ordering},
 };
+use serde::ser::{Serialize, SerializeStruct, Serializer};
+
+#[derive(Debug)]
+struct EdgeName;
+
+impl fmt::Display for EdgeName {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "Can't get Edge name")
+    }
+}
 
 #[derive(Debug, Clone)]
 pub struct Graph {
     nodes: BTreeMap<u64, char>,
     edges: Vec<(u64, u64)>,
     root: Option<u64>,
+}
+
+impl Serialize for Graph {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+        where
+            S: Serializer {
+        let mut state = serializer.serialize_struct("Graph", 3)?;
+        state.serialize_field("root", &self.root)?;
+        state.serialize_field("nodes", &self.nodes)?;
+        state.serialize_field("edges", &self.edges)?;
+        state.end()
+    }
 }
 
 static COUNTER: AtomicUsize = AtomicUsize::new(0);

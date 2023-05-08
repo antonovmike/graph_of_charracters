@@ -11,6 +11,9 @@ fn main() {
     let graph = Graph::add_edge(&graph, 'C', 'D');
     println!("v1\n{}", graph);
 
+    let serialized = serde_yaml::to_string(&graph).unwrap();
+    println!("serialized\n-----\n{serialized}\n-----\n");
+
     let graph_2 = Graph::add_node(&graph, &['A']);
 
     let graph_3 = Graph::rm_node(&graph_2, None, Some(1));
