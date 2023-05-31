@@ -5,7 +5,7 @@ fn main() {
 
     let empty_graph = Graph::default();
     println!("{}", empty_graph);
-    let graph = Graph::add_node(&empty_graph, &list_of_nodes);
+    let graph = Graph::add_node(empty_graph, &list_of_nodes);
     let graph = Graph::add_edge(&graph, 'A', 'B');
     let graph = Graph::add_edge(&graph, 'C', 'B');
     let graph = Graph::add_edge(&graph, 'C', 'D');
@@ -14,7 +14,7 @@ fn main() {
     let serialized = serde_yaml::to_string(&graph).unwrap();
     println!("serialized\n-----\n{serialized}\n-----\n");
 
-    let graph_2 = Graph::add_node(&graph, &['A']);
+    let graph_2 = Graph::add_node(graph, &['A']);
 
     let graph_3 = Graph::rm_node(&graph_2, None, Some(1));
 
@@ -27,4 +27,6 @@ fn main() {
 
     let edge_name = Graph::get_edge_name(&graph_3, 2, 3);
     println!("Edge name: {}", edge_name);
+
+    println!("search: {}", Graph::search(&graph_3, 'A', 'a'));
 }
